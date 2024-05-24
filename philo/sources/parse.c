@@ -1,30 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   parse.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: chhoflac <chhoflac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/05/21 13:07:06 by chhoflac          #+#    #+#             */
-/*   Updated: 2024/05/24 15:47:46 by chhoflac         ###   ########.fr       */
+/*   Created: 2024/05/24 15:21:14 by chhoflac          #+#    #+#             */
+/*   Updated: 2024/05/24 15:50:17 by chhoflac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-int	main(int argc, char **argv)
+t_table	*ft_parse(int argc, char **argv)
 {
 	t_table	*table;
 
-	if (argc >= 5 && argc < 7)
-	{
-		table = ft_parse(argc, argv);
-		if (!table)
-			printf("ERROR");
-		else
-		{
-			printf("philos : %d forks : %d\n", table->nb_philo, table->nb_forks);
-			printf("die : %d eat: %d sleep: %d\n", table->time_to_die, table->time_to_eat, table->time_to_sleep);
-		}
-	}
+	table = malloc(sizeof(t_table *));
+	if (!table)
+		return (NULL);
+	table->nb_philo = ft_atoi(argv[1]);
+	if (table->nb_philo <= 0)
+		return (NULL);
+	table->nb_forks = table->nb_philo;
+	table->time_to_die = ft_atoi(argv[2]);
+	table->time_to_eat = ft_atoi(argv[3]);
+	table->time_to_sleep = ft_atoi(argv[4]);
+	if (argc == 5)
+		table->must_eat = ft_atoi(argv[5]);
+	else
+		table->must_eat = 1;
+	return (table);
 }

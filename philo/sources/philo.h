@@ -6,7 +6,7 @@
 /*   By: chhoflac <chhoflac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 13:27:09 by chhoflac          #+#    #+#             */
-/*   Updated: 2024/05/22 15:19:24 by chhoflac         ###   ########.fr       */
+/*   Updated: 2024/05/24 15:49:26 by chhoflac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,14 +21,18 @@
 
 typedef struct table
 {
-	int		log;
-	int		nb_philo;
-	int		nb_forks;
-	time_t	*time_to_die;
-	time_t	*time_to_eat;
-	time_t	*time_to_sleep;
-	time_t	*must_eat;
+	int	nb_philo;
+	int	nb_forks;
+	int	time_to_die;
+	int	time_to_eat;
+	int	time_to_sleep;
+	int	must_eat;
 }	t_table;
+
+int		ft_atoi(char *str);
+int		ft_strlen(char *str);
+
+t_table	*ft_parse(int argc, char **argv);
 
 #endif
 
