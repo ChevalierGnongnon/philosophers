@@ -1,5 +1,6 @@
 SRCS = sources/main.c \
-	sources/philo.c
+	sources/philo.c \
+	sources/write_state.c
 
 OBJS = $(SRCS:.c=.o)
 
