@@ -6,7 +6,7 @@
 /*   By: chhoflac <chhoflac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 13:27:09 by chhoflac          #+#    #+#             */
-/*   Updated: 2024/05/27 13:42:57 by chhoflac         ###   ########.fr       */
+/*   Updated: 2024/06/02 13:11:11 by chhoflac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,30 +19,18 @@
 # include <sys/time.h>
 # include <pthread.h>
 
-typedef struct s_philo
-{
-	pthread_t		thread;
-	pthread_mutex_t	righ_fork;
-	pthread_mutex_t	left_fork;
-	unsigned int	time_to_eat;
-	unsigned int	time_to_sleep;
-	unsigned int	time_to_die;
-	int				id;
-}	t_philo;
-
 typedef struct s_table
 {
-	int				nb_philos;
-	int				nb_forks;
-	unsigned int	time_to_eat;
-	unsigned int	time_to_sleep;
-	unsigned int	time_to_die;
+	int					nb_philo;
+	int					nb_forks;
+	unsigned long long	time_to_die;
+	unsigned long long	time_to_eat;
+	unsigned long long	time_to_sleep;
+	int					must_eat;
+	pthread_mutex_t		*tab_forks;
 }	t_table;
 
-int		ft_atoi(char *str);
-int		ft_strlen(char *str);
-
-t_table	*ft_parse(int argc, char **argv);
+int					ft_atoi(char *str);
+unsigned long long	ft_atollu(char *str);
 
 #endif
-
