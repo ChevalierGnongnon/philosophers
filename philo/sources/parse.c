@@ -6,7 +6,7 @@
 /*   By: chhoflac <chhoflac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 15:21:14 by chhoflac          #+#    #+#             */
-/*   Updated: 2024/06/02 13:14:23 by chhoflac         ###   ########.fr       */
+/*   Updated: 2024/06/02 14:29:25 by chhoflac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ t_table	*create_table(int argc, char **argv)
 {
 	t_table	*table;
 
-	table = malloc(sizeof(t_table *));
+	table = malloc(sizeof(t_table));
 	if (!table)
 		return (NULL);
 	table->nb_philo = ft_atoi(argv[1]);
