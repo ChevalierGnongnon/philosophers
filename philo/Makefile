@@ -1,8 +1,8 @@
 SRCS = sources/main.c \
 	sources/parse.c \
-	sources/utils.c \
-	sources/write_state.c
-
+	sources/state.c \
+	sources/utils.c 
+	
 OBJS = $(SRCS:.c=.o)
 
 CC = cc

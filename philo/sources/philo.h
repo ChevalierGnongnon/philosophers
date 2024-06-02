@@ -6,7 +6,7 @@
 /*   By: chhoflac <chhoflac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 13:27:09 by chhoflac          #+#    #+#             */
-/*   Updated: 2024/06/02 13:52:13 by chhoflac         ###   ########.fr       */
+/*   Updated: 2024/06/02 15:05:45 by chhoflac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,9 @@ typedef struct s_table
 	unsigned long long	time_to_eat;
 	unsigned long long	time_to_sleep;
 	int					must_eat;
+	pthread_t			*philos;
 }	t_table;
+
 
 int					ft_atoi(char *str);
 unsigned long long	ft_atollu(char *str);

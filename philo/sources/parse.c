@@ -6,7 +6,7 @@
 /*   By: chhoflac <chhoflac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 15:21:14 by chhoflac          #+#    #+#             */
-/*   Updated: 2024/06/02 14:29:25 by chhoflac         ###   ########.fr       */
+/*   Updated: 2024/06/02 15:10:08 by chhoflac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,5 +28,8 @@ t_table	*create_table(int argc, char **argv)
 		table->must_eat = ft_atoi(argv[5]);
 	else
 		table->must_eat = 0;
+	table->philos = malloc(sizeof(pthread_t) * table->nb_philo);
+	if (!table->philos)
+		return (NULL);
 	return (table);
 }
