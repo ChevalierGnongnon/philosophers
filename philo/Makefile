@@ -1,9 +1,11 @@
-SRCS = sources/main.c \
-	sources/parse.c \
-	sources/state.c \
-	sources/utils.c 
-	
-OBJS = $(SRCS:.c=.o)
+FILES = main \
+	parse \
+	state \
+	utils 
+
+SRC = $(foreach f, $(FILES), sources/$(f).c)
+
+OBJS = $(foreach f, $(FILES), objects/$(f).o)
 
 CC = cc
 
@@ -13,6 +15,10 @@ NAME = philo
 
 $(NAME): $(OBJS)
 	$(CC) $(CFLAGS) $(OBJS) -o $(NAME)
+
+objects/%.o: sources/%.c
+	mkdir -p $(dir $@)
+	$(CC) $(CFLAGS) -o $@ -c $<
 
 clean:  
 	rm -f $(OBJS)
