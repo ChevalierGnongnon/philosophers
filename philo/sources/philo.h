@@ -6,7 +6,7 @@
 /*   By: chhoflac <chhoflac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 13:27:09 by chhoflac          #+#    #+#             */
-/*   Updated: 2024/06/02 15:05:45 by chhoflac         ###   ########.fr       */
+/*   Updated: 2024/06/14 15:24:42 by chhoflac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,20 +19,36 @@
 # include <sys/time.h>
 # include <pthread.h>
 
-typedef struct s_table
+typedef struct s_timings
 {
-	int					nb_philo;
-	int					nb_forks;
 	unsigned long long	time_to_die;
 	unsigned long long	time_to_eat;
-	unsigned long long	time_to_sleep;
-	int					must_eat;
-	pthread_t			*philos;
-}	t_table;
+	unsigned long long	time_to_sleep;	
+}	t_timings;
 
+typedef struct s_philo
+{
+	t_timings			*timings;
+	int					must_eat;
+	int					id;
+	pthread_mutex_t		right_fork;
+	pthread_mutex_t		left_fork;
+}	t_philo;
+
+typedef struct s_program
+{
+	t_timings			*timings;
+	int					must_eat;
+	int					nb_philos;
+	t_philo				*philos;
+}	t_program;
 
 int					ft_atoi(char *str);
 unsigned long long	ft_atollu(char *str);
-t_table				*create_table(int argc, char **argv);
+t_philo				*create_table(int argc, char **argv);
+void				is_eating(int time_stamp, int philo);
+void				is_sleeping(int time_stamp, int philo);
+void				is_thinking(int philo);
+void				is_dead(int time_stamp, int philo);
 
 #endif
