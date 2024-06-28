@@ -6,7 +6,7 @@
 /*   By: chhoflac <chhoflac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 15:21:14 by chhoflac          #+#    #+#             */
-/*   Updated: 2024/06/20 15:18:59 by chhoflac         ###   ########.fr       */
+/*   Updated: 2024/06/28 17:17:58 by chhoflac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,8 @@ t_philo	**create_philos(int argc, char **argv)
 			philosophers[n - 1]->must_eat = 0;
 		philosophers[n - 1]->id = n;
 		n--;
+		pthread_mutex_init(philosophers[n - 1]->left_fork, NULL);
+		pthread_mutex_init(philosophers[n - 1]->right_fork, NULL);
 	}
 	return (philosophers);
 }
@@ -71,3 +73,4 @@ t_timings	*set_time(char *ttd, char *tte, char *tts)
 	timings->time_to_sleep = ft_atollu(tts);
 	return (timings);
 }
+

@@ -6,7 +6,7 @@
 /*   By: chhoflac <chhoflac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 13:27:09 by chhoflac          #+#    #+#             */
-/*   Updated: 2024/06/20 13:19:57 by chhoflac         ###   ########.fr       */
+/*   Updated: 2024/06/28 16:06:59 by chhoflac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,8 @@ typedef struct s_philo
 	t_timings			*timings;
 	int					must_eat;
 	int					id;
-	pthread_mutex_t		right_fork;
-	pthread_mutex_t		left_fork;
+	pthread_mutex_t		*right_fork;
+	pthread_mutex_t		*left_fork;
 }	t_philo;
 
 typedef struct s_program
@@ -59,10 +59,11 @@ t_timings			*set_time(char *ttd, char *tte, char *tts);
 /*
  * Current state
  */
-void				is_eating(int time_stamp, int philo);
-void				is_sleeping(int time_stamp, int philo);
-void				is_thinking(int philo);
-void				is_dead(int time_stamp, int philo);
+void				is_eating(int time_stamp, t_philo *philo);
+void				is_sleeping(int time_stamp, t_philo *philo);
+void				is_thinking(t_philo *philo);
+void				is_dead(int time_stamp, t_philo *philo);
+void				start_routine(t_program *prog);
 
 /*
  * Free memory allocation

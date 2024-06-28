@@ -6,7 +6,7 @@
 /*   By: chhoflac <chhoflac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/15 10:46:31 by chhoflac          #+#    #+#             */
-/*   Updated: 2024/06/20 14:52:37 by chhoflac         ###   ########.fr       */
+/*   Updated: 2024/06/28 15:05:58 by chhoflac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,5 +43,4 @@ void	ft_clear(t_program *prog)
 	ft_free_timings(prog->timings);
 	ft_free_prog(prog);
 	ft_free_philos(prog->philos, prog->nb_philos);
-	
 }

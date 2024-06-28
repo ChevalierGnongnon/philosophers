@@ -1,6 +1,7 @@
 FILES = free \
 	main \
 	parse \
+	routine \
 	state \
 	utils 
 
@@ -10,7 +11,7 @@ OBJS = $(foreach f, $(FILES), objects/$(f).o)
 
 CC = cc
 
-CFLAGS = -Werror -Wextra -Wall
+CFLAGS = -Werror -Wextra -Wall -g3
 
 NAME = philo
 
