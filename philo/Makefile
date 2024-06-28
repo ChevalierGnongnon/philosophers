@@ -1,4 +1,5 @@
-FILES = main \
+FILES = free \
+	main \
 	parse \
 	state \
 	utils 
@@ -31,4 +32,3 @@ re: fclean all
 all: $(NAME)
 
 .PHONY: all clean fclean re
-

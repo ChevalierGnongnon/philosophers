@@ -6,7 +6,7 @@
 /*   By: chhoflac <chhoflac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 13:27:09 by chhoflac          #+#    #+#             */
-/*   Updated: 2024/06/15 10:57:12 by chhoflac         ###   ########.fr       */
+/*   Updated: 2024/06/20 13:19:57 by chhoflac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,18 +43,33 @@ typedef struct s_program
 	t_philo				**philos;
 }	t_program;
 
+/*
+ * Utils
+ */
 int					ft_atoi(char *str);
 unsigned long long	ft_atollu(char *str);
 
-t_philo				*create_table(int argc, char **argv);
+/*
+ * Parsing
+ */
+t_program			*initiate(int argc, char **argv);
+t_philo				**create_philos(int argc, char **argv);
+t_timings			*set_time(char *ttd, char *tte, char *tts);
 
+/*
+ * Current state
+ */
 void				is_eating(int time_stamp, int philo);
 void				is_sleeping(int time_stamp, int philo);
 void				is_thinking(int philo);
 void				is_dead(int time_stamp, int philo);
 
+/*
+ * Free memory allocation
+ */
 void				*ft_free_timings(t_timings *timings);
 void				*ft_free_prog(t_program *program);
-void				*ft_free_philos(t_philo **philo);
+void				*ft_free_philos(t_philo **philos, int nb_philos);
+void				ft_clear(t_program *prog);
 
 #endif

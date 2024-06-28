@@ -6,7 +6,7 @@
 /*   By: chhoflac <chhoflac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/15 10:46:31 by chhoflac          #+#    #+#             */
-/*   Updated: 2024/06/15 11:10:35 by chhoflac         ###   ########.fr       */
+/*   Updated: 2024/06/20 14:52:37 by chhoflac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,10 +38,10 @@ void	*ft_free_philos(t_philo **philos, int nb_philos)
 	return (NULL);
 }
 
-void	ft_clear(t_philo *philos, t_program *prog, t_timings *timings)
+void	ft_clear(t_program *prog)
 {
-	ft_free_timings(timings);
+	ft_free_timings(prog->timings);
 	ft_free_prog(prog);
-	ft_free_philos(philos, prog->nb_philos);
-	return (NULL);
+	ft_free_philos(prog->philos, prog->nb_philos);
+	
 }
