@@ -6,7 +6,7 @@
 /*   By: chhoflac <chhoflac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 15:21:14 by chhoflac          #+#    #+#             */
-/*   Updated: 2024/06/30 16:43:07 by chhoflac         ###   ########.fr       */
+/*   Updated: 2024/06/30 18:07:06 by chhoflac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,6 @@ t_program	*initiate(int argc, char **argv)
 		return (ft_free_prog(prog));
 	prog->mutexes = malloc(sizeof(pthread_mutex_t) * prog->nb_philos);
 	assign_forks(prog);
-	create_threads(prog->philos);
 	return (prog);
 }
 
@@ -92,23 +91,25 @@ void	assign_forks(t_program *prog)
 	}
 }
 
-void	create_threads(t_philo **philos)
+void	create_threads(t_program  *prog)
 {
 	int	i;
 
 	i = 0;
-	while (philos[i] != NULL)
+	while (i < prog->nb_philos)
 	{
-		if (philos[i]->id % 2 == 0)
-			pthread_create(&philos[i]->thread, NULL, start_routine,  philos[i]);
+		if (prog->philos[i]->id % 2 == 0)
+			pthread_create(&prog->philos[i]->thread, NULL,
+				start_routine, prog->philos[i]);
 		i++;
 	}
-	usleep(1);
+	usleep(1000);
 	i = 0;
-	while (philos[i] != NULL)
+	while (i < prog->nb_philos)
 	{
-		if (philos[i]->id % 2 == 1)
-			pthread_create(&philos[i]->thread, NULL, start_routine, philos[i]);
+		if (prog->philos[i]->id % 2 == 1)
+			pthread_create(&prog->philos[i]->thread, NULL,
+				start_routine, prog->philos[i]);
 		i++;
 	}
 }

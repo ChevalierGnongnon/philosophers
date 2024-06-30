@@ -6,7 +6,7 @@
 /*   By: chhoflac <chhoflac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 13:27:09 by chhoflac          #+#    #+#             */
-/*   Updated: 2024/06/30 16:39:49 by chhoflac         ###   ########.fr       */
+/*   Updated: 2024/06/30 17:31:00 by chhoflac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ t_program			*initiate(int argc, char **argv);
 t_philo				**create_philos(int argc, char **argv);
 t_timings			*set_time(char *ttd, char *tte, char *tts);
 void				assign_forks(t_program *prog);
-void				create_threads(t_philo **philos);
+void				create_threads(t_program *prog);
 
 /*
  * Current state

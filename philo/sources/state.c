@@ -6,7 +6,7 @@
 /*   By: chhoflac <chhoflac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 15:41:28 by chhoflac          #+#    #+#             */
-/*   Updated: 2024/06/30 16:04:18 by chhoflac         ###   ########.fr       */
+/*   Updated: 2024/06/30 18:07:29 by chhoflac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,10 @@ void	is_eating(t_philo *philosopher)
 	printf("%li %d is eating\n",
 		(1000 * tv.tv_sec) + (tv.tv_usec / 1000), philosopher->id);
 	usleep(philosopher->timings->time_to_eat * 1000);
+	philosopher->time_left = philosopher->timings->time_to_die;
 	pthread_mutex_unlock(philosopher->left_fork);
 	pthread_mutex_unlock(philosopher->right_fork);
+	philosopher->must_eat--;
 }
 
 void	is_sleeping(t_philo	*philosopher)
