@@ -6,7 +6,7 @@
 /*   By: chhoflac <chhoflac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 15:21:14 by chhoflac          #+#    #+#             */
-/*   Updated: 2024/06/28 17:17:58 by chhoflac         ###   ########.fr       */
+/*   Updated: 2024/06/30 16:43:07 by chhoflac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 t_program	*initiate(int argc, char **argv)
 {
 	t_program	*prog;
-	t_philo		**philo;
 
 	prog = malloc(sizeof(t_program));
 	if (!prog)
@@ -26,9 +25,12 @@ t_program	*initiate(int argc, char **argv)
 		prog->must_eat = 0;
 	else if (argc == 6)
 		prog->must_eat = ft_atoi(argv[5]);
-	philo = create_philos(argc, argv);
-	if (!philo)
+	prog->philos = create_philos(argc, argv);
+	if (!prog->philos)
 		return (ft_free_prog(prog));
+	prog->mutexes = malloc(sizeof(pthread_mutex_t) * prog->nb_philos);
+	assign_forks(prog);
+	create_threads(prog->philos);
 	return (prog);
 }
 
@@ -54,9 +56,9 @@ t_philo	**create_philos(int argc, char **argv)
 		else
 			philosophers[n - 1]->must_eat = 0;
 		philosophers[n - 1]->id = n;
+		philosophers[n - 1]->left_fork = NULL;
+		philosophers[n - 1]->right_fork = NULL;
 		n--;
-		pthread_mutex_init(philosophers[n - 1]->left_fork, NULL);
-		pthread_mutex_init(philosophers[n - 1]->right_fork, NULL);
 	}
 	return (philosophers);
 }
@@ -73,4 +75,43 @@ t_timings	*set_time(char *ttd, char *tte, char *tts)
 	timings->time_to_sleep = ft_atollu(tts);
 	return (timings);
 }
+
+void	assign_forks(t_program *prog)
+{
+	int	i;
+
+	i = 0;
+	while (i < prog->nb_philos)
+	{
+		prog->philos[i]->left_fork = &prog->mutexes[i];
+		if (i < prog->nb_philos - 1)
+			prog->philos[i]->right_fork = &prog->mutexes[i + 1];
+		else
+			prog->philos[i]->right_fork = &prog->mutexes[0];
+		i++;
+	}
+}
+
+void	create_threads(t_philo **philos)
+{
+	int	i;
+
+	i = 0;
+	while (philos[i] != NULL)
+	{
+		if (philos[i]->id % 2 == 0)
+			pthread_create(&philos[i]->thread, NULL, start_routine,  philos[i]);
+		i++;
+	}
+	usleep(1);
+	i = 0;
+	while (philos[i] != NULL)
+	{
+		if (philos[i]->id % 2 == 1)
+			pthread_create(&philos[i]->thread, NULL, start_routine, philos[i]);
+		i++;
+	}
+}
+
+
 

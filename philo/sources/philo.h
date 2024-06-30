@@ -6,7 +6,7 @@
 /*   By: chhoflac <chhoflac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 13:27:09 by chhoflac          #+#    #+#             */
-/*   Updated: 2024/06/28 16:06:59 by chhoflac         ###   ########.fr       */
+/*   Updated: 2024/06/30 16:39:49 by chhoflac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,10 +29,13 @@ typedef struct s_timings
 typedef struct s_philo
 {
 	t_timings			*timings;
+	int					time_left;
 	int					must_eat;
+	pthread_t			thread;
 	int					id;
 	pthread_mutex_t		*right_fork;
 	pthread_mutex_t		*left_fork;
+	int					is_dead;
 }	t_philo;
 
 typedef struct s_program
@@ -41,6 +44,7 @@ typedef struct s_program
 	int					must_eat;
 	int					nb_philos;
 	t_philo				**philos;
+	pthread_mutex_t		*mutexes;
 }	t_program;
 
 /*
@@ -55,15 +59,17 @@ unsigned long long	ft_atollu(char *str);
 t_program			*initiate(int argc, char **argv);
 t_philo				**create_philos(int argc, char **argv);
 t_timings			*set_time(char *ttd, char *tte, char *tts);
+void				assign_forks(t_program *prog);
+void				create_threads(t_philo **philos);
 
 /*
  * Current state
  */
-void				is_eating(int time_stamp, t_philo *philo);
-void				is_sleeping(int time_stamp, t_philo *philo);
+void				is_eating(t_philo *philo);
+void				is_sleeping(t_philo *philo);
 void				is_thinking(t_philo *philo);
-void				is_dead(int time_stamp, t_philo *philo);
-void				start_routine(t_program *prog);
+void				died(t_philo *philo);
+void				*start_routine(void *data);
 
 /*
  * Free memory allocation

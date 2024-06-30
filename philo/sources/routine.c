@@ -6,7 +6,7 @@
 /*   By: chhoflac <chhoflac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/28 15:08:46 by chhoflac          #+#    #+#             */
-/*   Updated: 2024/06/28 17:21:08 by chhoflac         ###   ########.fr       */
+/*   Updated: 2024/06/30 16:36:05 by chhoflac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,21 +14,19 @@
 
 void	routine(t_philo *philo)
 {
-	is_eating(philo->timings->time_to_eat, philo);
-	is_sleeping(philo->timings->time_to_sleep, philo);
+	is_eating(philo);
+	is_sleeping(philo);
 	is_thinking(philo);
-	pthread_mutex_destroy(philo->left_fork);
-	pthread_mutex_destroy(philo->right_fork);
 }
 
-void	start_routine(t_program *prog)
+void	*start_routine(void *data)
 {
-	int	i;
+	t_philo		*philos;
 
-	i = 0;
-	while (i < prog->nb_philos)
-	{
-		routine(prog->philos[i]);
-		i++;
-	}
+	philos = data;
+	philos->is_dead = 0;
+	philos->time_left = philos->timings->time_to_die;
+	while (1)
+		routine(philos);
+	return (NULL);
 }
