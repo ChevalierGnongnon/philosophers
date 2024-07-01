@@ -6,7 +6,7 @@
 /*   By: chhoflac <chhoflac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 15:21:14 by chhoflac          #+#    #+#             */
-/*   Updated: 2024/06/30 18:07:06 by chhoflac         ###   ########.fr       */
+/*   Updated: 2024/07/01 11:52:35 by chhoflac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,7 @@ void	assign_forks(t_program *prog)
 	}
 }
 
-void	create_threads(t_program  *prog)
+void	create_threads(t_program *prog)
 {
 	int	i;
 
@@ -113,6 +113,3 @@ void	create_threads(t_program  *prog)
 		i++;
 	}
 }
-
-
-
