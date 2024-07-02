@@ -6,7 +6,7 @@
 /*   By: chhoflac <chhoflac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 15:21:14 by chhoflac          #+#    #+#             */
-/*   Updated: 2024/07/01 11:52:35 by chhoflac         ###   ########.fr       */
+/*   Updated: 2024/07/02 15:29:22 by chhoflac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,11 +82,12 @@ void	assign_forks(t_program *prog)
 	i = 0;
 	while (i < prog->nb_philos)
 	{
-		prog->philos[i]->left_fork = &prog->mutexes[i];
+		pthread_mutex_init(&prog->mutexes[i], NULL);
+		prog->philos[i]->right_fork = &prog->mutexes[i];
 		if (i < prog->nb_philos - 1)
-			prog->philos[i]->right_fork = &prog->mutexes[i + 1];
+			prog->philos[i]->left_fork = &prog->mutexes[i + 1];
 		else
-			prog->philos[i]->right_fork = &prog->mutexes[0];
+			prog->philos[i]->left_fork = &prog->mutexes[0];
 		i++;
 	}
 }

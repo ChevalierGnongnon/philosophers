@@ -6,13 +6,13 @@
 /*   By: chhoflac <chhoflac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 13:07:06 by chhoflac          #+#    #+#             */
-/*   Updated: 2024/06/30 18:30:39 by chhoflac         ###   ########.fr       */
+/*   Updated: 2024/07/02 15:40:01 by chhoflac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-int	check_dead(t_program *prog)
+int	check_dead(t_program *prog, int *satisfied)
 {
 	int	i;
 
@@ -23,7 +23,7 @@ int	check_dead(t_program *prog)
 			return (0);
 		i++;
 	}
-	return (1);
+	return ((*satisfied) < prog->nb_philos);
 }
 
 int	gettime(void)
@@ -48,7 +48,7 @@ void	update_time_left(t_program *prog, int *satisfied)
 			died(prog->philos[i]);
 			break ;
 		}
-		if (prog->philos[i]->must_eat == 0)
+		else if (prog->philos[i]->must_eat == 0)
 			(*satisfied)++;
 		i++;
 	}
@@ -60,14 +60,17 @@ int	main(int argc, char **argv)
 	int			satisfied;
 	int			ref_time;
 	int			delta_time;
+	int			i;
 
+	i = 0;
 	satisfied = 0;
 	if (argc >= 5)
 	{
 		prog = initiate(argc, argv);
 		create_threads(prog);
+		usleep(1000);
 		ref_time = gettime();
-		while (check_dead(prog) && satisfied < prog->nb_philos)
+		while (check_dead(prog, &satisfied))
 		{
 			delta_time = gettime();
 			if (delta_time - ref_time >= 1000)
@@ -75,6 +78,11 @@ int	main(int argc, char **argv)
 				update_time_left(prog, &satisfied);
 				ref_time = delta_time;
 			}
+		}
+		while (i < prog->nb_philos)
+		{
+			pthread_mutex_destroy(&prog->mutexes[i]);
+			i++;
 		}
 	}
 }
