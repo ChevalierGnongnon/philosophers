@@ -6,7 +6,7 @@
 /*   By: chhoflac <chhoflac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 13:27:09 by chhoflac          #+#    #+#             */
-/*   Updated: 2024/06/30 17:31:00 by chhoflac         ###   ########.fr       */
+/*   Updated: 2024/07/02 17:25:21 by chhoflac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,11 +19,13 @@
 # include <sys/time.h>
 # include <pthread.h>
 
+typedef unsigned long long int t_time;
+
 typedef struct s_timings
 {
-	unsigned long long	time_to_die;
-	unsigned long long	time_to_eat;
-	unsigned long long	time_to_sleep;	
+	t_time	time_to_die;
+	t_time	time_to_eat;
+	t_time	time_to_sleep;	
 }	t_timings;
 
 typedef struct s_philo
@@ -58,7 +60,7 @@ unsigned long long	ft_atollu(char *str);
  */
 t_program			*initiate(int argc, char **argv);
 t_philo				**create_philos(int argc, char **argv);
-t_timings			*set_time(char *ttd, char *tte, char *tts);
+t_timings			*set_time(char *ttd, char *tte, char *tts, t_philo *ph);
 void				assign_forks(t_program *prog);
 void				create_threads(t_program *prog);
 

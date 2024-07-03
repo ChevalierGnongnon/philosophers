@@ -6,7 +6,7 @@
 /*   By: chhoflac <chhoflac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 13:07:06 by chhoflac          #+#    #+#             */
-/*   Updated: 2024/07/02 15:40:01 by chhoflac         ###   ########.fr       */
+/*   Updated: 2024/07/03 11:52:45 by chhoflac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,15 @@ int	gettime(void)
 	return (tv.tv_usec);
 }
 
+void	kill_philo(t_program *prog)
+{
+	int	i;
+
+	i = 0;
+	while (i < prog->nb_philos)
+		prog->philos[i++]->is_dead = 1;
+}
+
 void	update_time_left(t_program *prog, int *satisfied)
 {
 	int	i;
@@ -44,7 +53,7 @@ void	update_time_left(t_program *prog, int *satisfied)
 		prog->philos[i]->time_left--;
 		if (prog->philos[i]->time_left == 0)
 		{
-			prog->philos[i]->is_dead = 1;
+			kill_philo(prog);
 			died(prog->philos[i]);
 			break ;
 		}
@@ -58,8 +67,8 @@ int	main(int argc, char **argv)
 {
 	t_program	*prog;
 	int			satisfied;
-	int			ref_time;
-	int			delta_time;
+	t_time		ref_time;
+	t_time		delta_time;
 	int			i;
 
 	i = 0;

@@ -6,7 +6,7 @@
 /*   By: chhoflac <chhoflac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/28 15:08:46 by chhoflac          #+#    #+#             */
-/*   Updated: 2024/07/01 11:52:52 by chhoflac         ###   ########.fr       */
+/*   Updated: 2024/07/02 16:00:40 by chhoflac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,6 @@ void	*start_routine(void *data)
 
 	philos = data;
 	philos->is_dead = 0;
-	philos->time_left = philos->timings->time_to_die;
 	while (1)
 		routine(philos);
 	return (NULL);

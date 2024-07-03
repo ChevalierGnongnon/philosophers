@@ -6,7 +6,7 @@
 /*   By: chhoflac <chhoflac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 15:21:14 by chhoflac          #+#    #+#             */
-/*   Updated: 2024/07/02 15:29:22 by chhoflac         ###   ########.fr       */
+/*   Updated: 2024/07/02 17:18:54 by chhoflac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ t_program	*initiate(int argc, char **argv)
 	if (!prog)
 		return (NULL);
 	prog->nb_philos = ft_atoi(argv[1]);
-	prog->timings = set_time(argv[2], argv[3], argv[4]);
+	prog->timings = set_time(argv[2], argv[3], argv[4], NULL);
 	if (argc == 5)
 		prog->must_eat = 0;
 	else if (argc == 6)
@@ -47,13 +47,13 @@ t_philo	**create_philos(int argc, char **argv)
 		philosophers[n - 1] = malloc(sizeof(t_philo));
 		if (!philosophers[n - 1])
 			return (ft_free_philos(philosophers, n));
-		philosophers[n - 1]->timings = set_time(argv[2], argv[3], argv[4]);
+		set_time(argv[2], argv[3], argv[4], philosophers[n - 1]);
 		if (!philosophers[n - 1]->timings)
 			return (ft_free_philos(philosophers, n));
 		if (argc > 5)
 			philosophers[n - 1]->must_eat = ft_atoi(argv[5]);
 		else
-			philosophers[n - 1]->must_eat = 0;
+			philosophers[n - 1]->must_eat = -1;
 		philosophers[n - 1]->id = n;
 		philosophers[n - 1]->left_fork = NULL;
 		philosophers[n - 1]->right_fork = NULL;
@@ -62,7 +62,7 @@ t_philo	**create_philos(int argc, char **argv)
 	return (philosophers);
 }
 
-t_timings	*set_time(char *ttd, char *tte, char *tts)
+t_timings	*set_time(char *ttd, char *tte, char *tts, t_philo *ph)
 {
 	t_timings	*timings;
 
@@ -72,6 +72,11 @@ t_timings	*set_time(char *ttd, char *tte, char *tts)
 	timings->time_to_die = ft_atollu(ttd);
 	timings->time_to_eat = ft_atollu(tte);
 	timings->time_to_sleep = ft_atollu(tts);
+	if (ph != NULL)
+	{
+		ph->time_left = timings->time_to_die;
+		ph->timings = timings;
+	}
 	return (timings);
 }
 
@@ -84,7 +89,7 @@ void	assign_forks(t_program *prog)
 	{
 		pthread_mutex_init(&prog->mutexes[i], NULL);
 		prog->philos[i]->right_fork = &prog->mutexes[i];
-		if (i < prog->nb_philos - 1)
+		if (i != prog->nb_philos - 1)
 			prog->philos[i]->left_fork = &prog->mutexes[i + 1];
 		else
 			prog->philos[i]->left_fork = &prog->mutexes[0];
