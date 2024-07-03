@@ -6,41 +6,48 @@
 /*   By: chhoflac <chhoflac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/15 10:46:31 by chhoflac          #+#    #+#             */
-/*   Updated: 2024/06/28 15:05:58 by chhoflac         ###   ########.fr       */
+/*   Updated: 2024/07/03 16:04:52 by chhoflac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-void	*ft_free_timings(t_timings *timings)
-{
-	free(timings);
-	return (NULL);
-}
-
-void	*ft_free_prog(t_program *prog)
-{
-	free(prog);
-	return (NULL);
-}
-
-void	*ft_free_philos(t_philo **philos, int nb_philos)
+void	*free_philos(t_program *prog)
 {
 	int	i;
 
 	i = 0;
-	while (i < nb_philos)
+	while (i < prog->nb_philos)
 	{
-		free(philos[i]);
+		free(prog->philos[i]->timings);
+		pthread_detach(prog->philos[i]->thread);
+		free(prog->philos[i]);
 		i++;
 	}
-	free(philos);
+	free(prog->philos);
 	return (NULL);
 }
 
-void	ft_clear(t_program *prog)
+void	*destroy_mutex(t_program *prog)
 {
-	ft_free_timings(prog->timings);
-	ft_free_prog(prog);
-	ft_free_philos(prog->philos, prog->nb_philos);
+	int	i;
+
+	i = 0;
+	while (i < prog->nb_philos)
+	{
+		pthread_mutex_destroy(&prog->mutexes[i]);
+		i++;
+	}
+	free(prog->mutexes);
+	return (NULL);
 }
+
+void	*ft_free(t_program *prog)
+{
+	destroy_mutex(prog);
+	free_philos(prog);
+	free(prog->timings);
+	free(prog);
+	return (NULL);
+}
+

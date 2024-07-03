@@ -6,7 +6,7 @@
 /*   By: chhoflac <chhoflac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 15:21:14 by chhoflac          #+#    #+#             */
-/*   Updated: 2024/07/02 17:18:54 by chhoflac         ###   ########.fr       */
+/*   Updated: 2024/07/03 16:30:53 by chhoflac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,15 +25,21 @@ t_program	*initiate(int argc, char **argv)
 		prog->must_eat = 0;
 	else if (argc == 6)
 		prog->must_eat = ft_atoi(argv[5]);
-	prog->philos = create_philos(argc, argv);
+	prog->philos = create_philos(argc, argv, prog);
 	if (!prog->philos)
-		return (ft_free_prog(prog));
+	{
+		free(prog);
+		free(prog->timings);
+		return (NULL);
+	}
 	prog->mutexes = malloc(sizeof(pthread_mutex_t) * prog->nb_philos);
+	if (!prog->mutexes)
+		return (ft_free(prog));
 	assign_forks(prog);
 	return (prog);
 }
 
-t_philo	**create_philos(int argc, char **argv)
+t_philo	**create_philos(int argc, char **argv, t_program *prog)
 {
 	t_philo	**philosophers;
 	int		n;
@@ -46,10 +52,10 @@ t_philo	**create_philos(int argc, char **argv)
 	{
 		philosophers[n - 1] = malloc(sizeof(t_philo));
 		if (!philosophers[n - 1])
-			return (ft_free_philos(philosophers, n));
+			return (free_philos(prog));
 		set_time(argv[2], argv[3], argv[4], philosophers[n - 1]);
 		if (!philosophers[n - 1]->timings)
-			return (ft_free_philos(philosophers, n));
+			return (free_philos(prog));
 		if (argc > 5)
 			philosophers[n - 1]->must_eat = ft_atoi(argv[5]);
 		else

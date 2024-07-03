@@ -6,7 +6,7 @@
 /*   By: chhoflac <chhoflac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 13:27:09 by chhoflac          #+#    #+#             */
-/*   Updated: 2024/07/02 17:25:21 by chhoflac         ###   ########.fr       */
+/*   Updated: 2024/07/03 15:09:35 by chhoflac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ typedef struct s_timings
 typedef struct s_philo
 {
 	t_timings			*timings;
-	int					time_left;
+	t_time				time_left;
 	int					must_eat;
 	pthread_t			thread;
 	int					id;
@@ -59,7 +59,7 @@ unsigned long long	ft_atollu(char *str);
  * Parsing
  */
 t_program			*initiate(int argc, char **argv);
-t_philo				**create_philos(int argc, char **argv);
+t_philo				**create_philos(int argc, char **argv, t_program *prog);
 t_timings			*set_time(char *ttd, char *tte, char *tts, t_philo *ph);
 void				assign_forks(t_program *prog);
 void				create_threads(t_program *prog);
@@ -76,9 +76,8 @@ void				*start_routine(void *data);
 /*
  * Free memory allocation
  */
-void				*ft_free_timings(t_timings *timings);
-void				*ft_free_prog(t_program *program);
-void				*ft_free_philos(t_philo **philos, int nb_philos);
-void				ft_clear(t_program *prog);
+void				*free_philos(t_program *prog);
+void				*destroy_mutex(t_program *prog);
+void				*ft_free(t_program *prog);
 
 #endif

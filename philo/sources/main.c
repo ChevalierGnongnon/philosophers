@@ -6,7 +6,7 @@
 /*   By: chhoflac <chhoflac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 13:07:06 by chhoflac          #+#    #+#             */
-/*   Updated: 2024/07/03 11:52:45 by chhoflac         ###   ########.fr       */
+/*   Updated: 2024/07/03 16:29:31 by chhoflac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,9 @@ void	kill_philo(t_program *prog)
 	i = 0;
 	while (i < prog->nb_philos)
 		prog->philos[i++]->is_dead = 1;
+	i = 0;
+	while (i < prog->nb_philos)
+		pthread_join(prog->philos[i++]->thread, NULL);
 }
 
 void	update_time_left(t_program *prog, int *satisfied)
@@ -88,10 +91,6 @@ int	main(int argc, char **argv)
 				ref_time = delta_time;
 			}
 		}
-		while (i < prog->nb_philos)
-		{
-			pthread_mutex_destroy(&prog->mutexes[i]);
-			i++;
-		}
+		ft_free(prog);
 	}
 }

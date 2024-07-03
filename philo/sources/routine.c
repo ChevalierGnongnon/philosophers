@@ -6,7 +6,7 @@
 /*   By: chhoflac <chhoflac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/28 15:08:46 by chhoflac          #+#    #+#             */
-/*   Updated: 2024/07/02 16:00:40 by chhoflac         ###   ########.fr       */
+/*   Updated: 2024/07/03 16:38:50 by chhoflac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@ void	routine(t_philo *philo)
 	is_eating(philo);
 	is_sleeping(philo);
 	is_thinking(philo);
+	if (philo->is_dead)
+		exit(0);
 }
 
 void	*start_routine(void *data)
