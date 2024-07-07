@@ -6,7 +6,7 @@
 /*   By: chhoflac <chhoflac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 13:07:06 by chhoflac          #+#    #+#             */
-/*   Updated: 2024/07/03 16:29:31 by chhoflac         ###   ########.fr       */
+/*   Updated: 2024/07/07 17:48:11 by chhoflac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,14 +26,6 @@ int	check_dead(t_program *prog, int *satisfied)
 	return ((*satisfied) < prog->nb_philos);
 }
 
-int	gettime(void)
-{
-	struct timeval	tv;
-
-	gettimeofday(&tv, NULL);
-	return (tv.tv_usec);
-}
-
 void	kill_philo(t_program *prog)
 {
 	int	i;
@@ -43,26 +35,23 @@ void	kill_philo(t_program *prog)
 		prog->philos[i++]->is_dead = 1;
 	i = 0;
 	while (i < prog->nb_philos)
-		pthread_join(prog->philos[i++]->thread, NULL);
+		pthread_detach(prog->philos[i++]->thread);
 }
 
-void	update_time_left(t_program *prog, int *satisfied)
+void	diner(t_program *prog, int *satisfied)
 {
-	int	i;
+	int	delta_time;
+	int	ref_time;
 
-	i = 0;
-	while (i < prog->nb_philos)
+	ref_time = gettime();
+	while (check_dead(prog, satisfied))
 	{
-		prog->philos[i]->time_left--;
-		if (prog->philos[i]->time_left == 0)
+		delta_time = gettime();
+		if (delta_time - ref_time >= 1000)
 		{
-			kill_philo(prog);
-			died(prog->philos[i]);
-			break ;
+			update_time_left(prog, satisfied);
+			ref_time = delta_time;
 		}
-		else if (prog->philos[i]->must_eat == 0)
-			(*satisfied)++;
-		i++;
 	}
 }
 
@@ -70,8 +59,6 @@ int	main(int argc, char **argv)
 {
 	t_program	*prog;
 	int			satisfied;
-	t_time		ref_time;
-	t_time		delta_time;
 	int			i;
 
 	i = 0;
@@ -81,16 +68,9 @@ int	main(int argc, char **argv)
 		prog = initiate(argc, argv);
 		create_threads(prog);
 		usleep(1000);
-		ref_time = gettime();
-		while (check_dead(prog, &satisfied))
-		{
-			delta_time = gettime();
-			if (delta_time - ref_time >= 1000)
-			{
-				update_time_left(prog, &satisfied);
-				ref_time = delta_time;
-			}
-		}
+		diner(prog, &satisfied);
+		usleep(prog->timings->time_to_eat);
+		usleep(prog->timings->time_to_sleep);
 		ft_free(prog);
 	}
 }

@@ -3,6 +3,7 @@ FILES = free \
 	parse \
 	routine \
 	state \
+	time \
 	utils 
 
 SRC = $(foreach f, $(FILES), sources/$(f).c)
@@ -26,7 +27,7 @@ clean:
 	rm -f $(OBJS)
 
 fclean: clean
-	rm $(NAME)
+	rm -f $(NAME)
 	
 re: fclean all
 
