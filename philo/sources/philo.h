@@ -6,7 +6,7 @@
 /*   By: chhoflac <chhoflac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 13:27:09 by chhoflac          #+#    #+#             */
-/*   Updated: 2024/07/07 17:51:23 by chhoflac         ###   ########.fr       */
+/*   Updated: 2024/07/08 11:39:06 by chhoflac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,7 @@ typedef struct s_program
 
 int					ft_atoi(char *str);
 unsigned long long	ft_atollu(char *str);
+int					check_numeric(int argc, char **argv);
 
 t_program			*initiate(int argc, char **argv);
 t_philo				**create_philos(int argc, char **argv, t_program *prog);
