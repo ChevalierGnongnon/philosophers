@@ -6,7 +6,7 @@
 /*   By: chhoflac <chhoflac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 13:07:06 by chhoflac          #+#    #+#             */
-/*   Updated: 2024/07/08 11:46:04 by chhoflac         ###   ########.fr       */
+/*   Updated: 2024/07/08 13:04:31 by chhoflac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ int	main(int argc, char **argv)
 
 	i = 0;
 	satisfied = 0;
-	if (argc >= 5 && check_numeric(argc, argv))
+	if ((argc == 5 || argc == 6) && check_args(argc, argv))
 	{
 		prog = initiate(argc, argv);
 		create_threads(prog);

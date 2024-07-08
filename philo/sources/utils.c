@@ -6,7 +6,7 @@
 /*   By: chhoflac <chhoflac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 15:40:26 by chhoflac          #+#    #+#             */
-/*   Updated: 2024/07/08 11:41:46 by chhoflac         ###   ########.fr       */
+/*   Updated: 2024/07/08 13:06:49 by chhoflac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,21 +16,6 @@ unsigned long long	ft_atollu(char *str)
 {
 	unsigned long long	res;
 	int					i;
-
-	res = 0;
-	i = 0;
-	while (str[i])
-	{
-		res = (res * 10) + (str[i] - '0');
-		i++;
-	}
-	return (res);
-}
-
-int	ft_atoi(char *str)
-{
-	int	res;
-	int	i;
 
 	res = 0;
 	i = 0;
@@ -57,6 +42,22 @@ int	check_numeric(int argc, char **argv)
 				return (0);
 			j++;
 		}
+		i++;
+	}
+	return (1);
+}
+
+int	check_args(int argc, char **argv)
+{
+	int	i;
+
+	i = 1;
+	if (!check_numeric(argc, argv))
+		return (0);
+	while (i < argc)
+	{
+		if (ft_atoi(argv[i]) < 0)
+			return (0);
 		i++;
 	}
 	return (1);

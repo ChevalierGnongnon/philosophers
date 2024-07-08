@@ -1,4 +1,5 @@
-FILES = free \
+FILES = atoi \
+	free \
 	main \
 	parse \
 	routine \
