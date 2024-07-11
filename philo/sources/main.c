@@ -6,7 +6,7 @@
 /*   By: chhoflac <chhoflac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 13:07:06 by chhoflac          #+#    #+#             */
-/*   Updated: 2024/07/08 13:04:31 by chhoflac         ###   ########.fr       */
+/*   Updated: 2024/07/11 17:55:13 by chhoflac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@ int	check_dead(t_program *prog, int *satisfied)
 	int	i;
 
 	i = 0;
+	if (prog->nb_philos == 1)
+		return (usleep(prog->timings->time_to_die * 1000), 0);
 	while (i < prog->nb_philos)
 	{
 		if (prog->philos[i]->is_dead)
