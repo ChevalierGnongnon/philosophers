@@ -6,7 +6,7 @@
 /*   By: chhoflac <chhoflac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/28 15:08:46 by chhoflac          #+#    #+#             */
-/*   Updated: 2024/07/11 17:48:52 by chhoflac         ###   ########.fr       */
+/*   Updated: 2024/08/05 14:44:11 by chhoflac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ void	*start_routine(void *data)
 		died(philos);
 		return (NULL);
 	}
-	while (philos->is_dead != 1)
+	while (philos->is_dead != 1 && philos->must_eat != 0)
 		routine(philos);
 	return (NULL);
 }

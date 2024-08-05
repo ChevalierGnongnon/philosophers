@@ -6,7 +6,7 @@
 /*   By: chhoflac <chhoflac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 13:07:06 by chhoflac          #+#    #+#             */
-/*   Updated: 2024/07/11 17:55:13 by chhoflac         ###   ########.fr       */
+/*   Updated: 2024/08/05 15:51:44 by chhoflac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,8 +42,8 @@ void	kill_philo(t_program *prog)
 
 void	diner(t_program *prog, int *satisfied)
 {
-	int	delta_time;
-	int	ref_time;
+	t_time	delta_time;
+	t_time	ref_time;
 
 	ref_time = gettime();
 	while (check_dead(prog, satisfied))

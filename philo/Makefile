@@ -25,7 +25,7 @@ objects/%.o: sources/%.c
 	$(CC) $(CFLAGS) -o $@ -c $<
 
 clean:  
-	rm -f $(OBJS)
+	rm -rf objects
 
 fclean: clean
 	rm -f $(NAME)

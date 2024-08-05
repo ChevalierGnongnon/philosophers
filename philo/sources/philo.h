@@ -6,7 +6,7 @@
 /*   By: chhoflac <chhoflac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 13:27:09 by chhoflac          #+#    #+#             */
-/*   Updated: 2024/07/08 12:59:47 by chhoflac         ###   ########.fr       */
+/*   Updated: 2024/08/05 15:50:58 by chhoflac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ void				*destroy_mutex(t_program *prog);
 void				*ft_free(t_program *prog);
 
 void				update_time_left(t_program *prog, int *satisfied);
-int					gettime(void);
+t_time				gettime(void);
 
 void				kill_philo(t_program *prog);
 

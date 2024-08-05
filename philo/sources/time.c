@@ -6,18 +6,18 @@
 /*   By: chhoflac <chhoflac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/07 17:38:13 by chhoflac          #+#    #+#             */
-/*   Updated: 2024/07/07 17:52:28 by chhoflac         ###   ########.fr       */
+/*   Updated: 2024/08/05 15:52:27 by chhoflac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-int	gettime(void)
+t_time	gettime(void)
 {
 	struct timeval	tv;
 
 	gettimeofday(&tv, NULL);
-	return (tv.tv_usec);
+	return (tv.tv_sec * 1000000 + tv.tv_usec);
 }
 
 void	update_time_left(t_program *prog, int *satisfied)
